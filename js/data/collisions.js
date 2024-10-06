@@ -16,12 +16,35 @@ Array.prototype.parse2D = function(){
   return rows
 }
 
+class collisionBlock {
+  constructor({position}){
+    this.position = position
+    this.width = 64
+    this.height = 64
+  }
+  draw(){
+    c.fillStyle = "red"
+    c.fillRect(this.position.x, this.position.y, this.width, this.height)
+  }
+}
+
+const collistionblocks = []
+
 const parsedCollisions = collisionsLevel1.parse2D()
-parsedCollisions.forEach(row =>{
-  console.log(row)
-  row.forEach(Symbol => console.log(Symbol))
+parsedCollisions.forEach((row, y)=>{
+  row.forEach((symbol, x)=>{
+    if(symbol === 292){
+      collistionblocks.push(
+        new collisionBlock({
+          position: {
+            x: x * 64,
+            y: y * 64
+          }
+        })
+      )
+    }
+  })
 })
-console.log(parsedCollisions)
 
 const collisionsLevel2 = [
   292, 292, 292, 292, 292, 292, 292, 0, 0, 0, 0, 0, 0, 0, 0, 0, 292, 0, 0, 0, 0,
