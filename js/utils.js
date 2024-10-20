@@ -11,7 +11,7 @@ Array.prototype.parse2D = function(){
     this.forEach((row, y)=>{
         row.forEach((symbol, x)=>{
           if(symbol === 292){
-            collistionblocks.push(
+            objects.push(
               new collisionBlock({
                 position: {
                   x: x * 64,

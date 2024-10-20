@@ -4,42 +4,8 @@ const c = canvas.getContext('2d')
 canvas.width = 1024
 canvas.height = 576
 
-const collistionblocks = []
-
 const parsedCollisions = collisionsLevel1.parse2D()
     const collisionBlocks = parsedCollisions.createObjectsFrom2D()
-class Player{
-    constructor(){
-        this.position = {
-            x: 100,
-            y: 100
-        }
-        this.velocity = {
-            x:0,
-            y: 0
-        }
-        this.width = 100
-        this.height = 100
-        this.sides ={
-            bottom: this.position.y + this.height
-        }
-        this.gravity = 1
-    }
-    draw(){
-        c.fillStyle = 'red'
-        c.fillRect(this.position.x, this.position.y , this.width, this.height)
-    }
-
-    update(){
-        this.position.x += this.velocity.x
-        this.position.y += this.velocity.y
-        this.sides.bottom = this.position.y + this.height
-        if(this.sides.bottom + this.velocity.y < canvas.height){
-                this.velocity.y += this.gravity
-            }else this.velocity.y = 0
-    }
-}
-
 
 const bacgroundLevel1 = new Sprite({
     position:{
@@ -49,7 +15,9 @@ const bacgroundLevel1 = new Sprite({
     imageSrc: "./img/backgroundLevel1.png"
 })
 
-const player = new Player()
+const player = new Player({
+    collisionBlocks,
+})
 
 const keys = {
     w :{
@@ -67,7 +35,7 @@ function animate(){
     c.fillStyle = 'white'
     c.fillRect(0, 0, canvas.width, canvas.height)
     bacgroundLevel1.draw()
-    collistionblocks.forEach(collisionBlock => {
+    collisionBlocks.forEach(collisionBlock => {
         collisionBlock.draw()
     })
     player.velocity.x = 0
