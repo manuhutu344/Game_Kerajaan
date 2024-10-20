@@ -7,21 +7,7 @@ canvas.height = 576
 const collistionblocks = []
 
 const parsedCollisions = collisionsLevel1.parse2D()
-parsedCollisions.forEach((row, y)=>{
-  row.forEach((symbol, x)=>{
-    if(symbol === 292){
-      collistionblocks.push(
-        new collisionBlock({
-          position: {
-            x: x * 64,
-            y: y * 64
-          }
-        })
-      )
-    }
-  })
-})
-
+    const collisionBlocks = parsedCollisions.createObjectsFrom2D()
 class Player{
     constructor(){
         this.position = {
